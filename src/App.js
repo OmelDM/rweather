@@ -1,18 +1,51 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import LoadAnimation from './views/LoadAnimation';
+import ErrorMessage from './views/ErrorMessage';
+import Weather from './views/Weather';
+import Controller from './Controller';
+
+const STATE_LOADING = 'loading';
+const STATE_ERROR = 'error';
+const STATE_SHOWING = 'showing';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.controller = new Controller();
+    this.state = {
+      appState: STATE_LOADING
+    };
+  }
+
+  componentDidMount() {
+    this.setState({
+      appState: STATE_LOADING
+    });
+    this.controller.fetchWeather().then(weather => {
+      this.setState({
+        appState: STATE_SHOWING
+      });
+    }).catch(error => {
+      this.setState({
+        appState: STATE_ERROR
+      });
+    });
+  }
+
   render() {
+    let currentComponent = null;
+    if (this.state.appState === STATE_LOADING) {
+      currentComponent = <LoadAnimation />;
+    } else if (this.state.appState === STATE_ERROR) {
+      currentComponent = <ErrorMessage />;
+    } else if (this.state.appState === STATE_SHOWING) {
+      currentComponent = <Weather weather = {this.controller.weather()}/>;
+    }
+
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        {currentComponent}
       </div>
     );
   }
