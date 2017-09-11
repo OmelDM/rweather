@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import LoadAnimation from './views/LoadAnimation';
 import ErrorMessage from './views/ErrorMessage';
-import Weather from './views/Weather';
+import WeatherContainer from './views/WeatherContainer';
 import Controller from './Controller';
 
 const STATE_LOADING = 'loading';
@@ -22,6 +22,7 @@ class App extends Component {
     this.setState({
       appState: STATE_LOADING
     });
+
     this.controller.fetchWeather().then(weather => {
       this.setState({
         appState: STATE_SHOWING
@@ -40,7 +41,7 @@ class App extends Component {
     } else if (this.state.appState === STATE_ERROR) {
       currentComponent = <ErrorMessage />;
     } else if (this.state.appState === STATE_SHOWING) {
-      currentComponent = <Weather weather = {this.controller.weather()}/>;
+      currentComponent = <WeatherContainer weather = {this.controller.getCurrentWeather()}/>;
     }
 
     return (

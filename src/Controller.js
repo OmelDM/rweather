@@ -1,3 +1,5 @@
+import Weather from './model/Weather';
+
 const GEOLOCATION_BY_IP_URL = 'http://ip-api.com/json';
 const APIXU_API_KEY = '7297b637fde44b36ad2153805171109';
 
@@ -17,13 +19,12 @@ export default class Controller {
                 .then(fetchJSON)
                 .then(locationJSON => {
                     // parse json to get current lat lon
-                    return fetch(`http://api.apixu.com/v1/current.json?key=${APIXU_API_KEY}&q=Kiev`);
+                    return fetch(`http://api.apixu.com/v1/current.json?key=${APIXU_API_KEY}&q=New-York`);
                 })
                 .then(fetchJSON)
                 .then(weatherJSON => {
-                    // parse json to local Weather object
-                    const weather = weatherJSON.current.temp_c;
-                    resolve(weather);
+                    this.currentWeather = new Weather(weatherJSON);
+                    resolve(this.currentWeather);
                 })
                 .catch(error => {
                     reject(error);
@@ -31,9 +32,7 @@ export default class Controller {
         });
     }
 
-    weather() {
-        return {
-            temp: 22
-        };
+    getCurrentWeather() {
+        return this.currentWeather;
     }
 }
