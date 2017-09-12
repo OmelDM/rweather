@@ -1,0 +1,34 @@
+.temperature {
+    font-size: 3rem;
+    line-height: 3rem;
+    letter-spacing: 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.temperature__value {
+    margin-bottom: 5px;
+}
+.temperature__scale {
+    font-size: .7rem;
+    line-height: .7rem;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, .5);
+}
+.temperature__toogle {
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    letter-spacing: inherit;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: underline;
+}
+.temperature__toogle:hover {
+    color: rgba(255, 255, 255, .8);
+    text-decoration: none;
+}

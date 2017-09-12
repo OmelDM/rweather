@@ -4,11 +4,11 @@ export default class Weather {
     }
 
     getTemperatureInCelsius() {
-        return this.weather.temp_c;
+        return Math.round(this.weather.temp_c);
     }
 
     getTemperatureInFahrenheit() {
-        return this.weather.temp_f;
+        return Math.round(this.weather.temp_f);
     }
 
     getLastUpdated() {
