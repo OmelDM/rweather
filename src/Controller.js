@@ -17,9 +17,11 @@ export default class Controller {
 
             fetch(GEOLOCATION_BY_IP_URL)
                 .then(fetchJSON)
-                .then(locationJSON => {
-                    // parse json to get current lat lon
-                    return fetch(`http://api.apixu.com/v1/current.json?key=${APIXU_API_KEY}&q=New-York`);
+                .then(({status, lat, lon, message}) => {
+                    if (status === 'fail') {
+                        throw new Error(`Location detection error: ${message}`);
+                    }
+                    return fetch(`http://api.apixu.com/v1/current.json?key=${APIXU_API_KEY}&q=${lat},${lon}`);
                 })
                 .then(fetchJSON)
                 .then(weatherJSON => {

@@ -19,10 +19,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      appState: STATE_LOADING
-    });
-
     this.controller.fetchWeather().then(weather => {
       this.setState({
         appState: STATE_SHOWING
