@@ -13,17 +13,20 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.controller = new Controller();
+    this.errorMessage = null;
     this.state = {
       appState: STATE_LOADING
     };
   }
 
   componentDidMount() {
+    this.errorMessage = null;
     this.controller.fetchWeather().then(weather => {
       this.setState({
         appState: STATE_SHOWING
       });
     }).catch(error => {
+      this.errorMessage = error.message;
       this.setState({
         appState: STATE_ERROR
       });
@@ -35,7 +38,7 @@ class App extends Component {
     if (this.state.appState === STATE_LOADING) {
       currentComponent = <LoadAnimation />;
     } else if (this.state.appState === STATE_ERROR) {
-      currentComponent = <ErrorMessage />;
+      currentComponent = <ErrorMessage errorMessage = {this.errorMessage} />;
     } else if (this.state.appState === STATE_SHOWING) {
       currentComponent = <WeatherContainer weather = {this.controller.getCurrentWeather()}/>;
     }

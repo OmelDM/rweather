@@ -1,7 +1,13 @@
 import React from 'react';
+import './ErrorMessage.css';
 
-export default function ErrorMessage() {
+export default function ErrorMessage({errorMessage}) {
     return(
-        <h1>ErrorMessage</h1>
+        <div className = 'error'>
+            <h1 className = 'error__title'>Error</h1>
+            <p>
+                {errorMessage}
+            </p>
+        </div>
     );
 };

@@ -1,0 +1,10 @@
+.error {
+    margin: 0;
+    padding: 15px;
+    border: 3px solid #8A0000;
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.error__title {
+    text-align: center;
+}
