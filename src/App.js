@@ -20,7 +20,14 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.updateWeather();
+  }
+
+  updateWeather() {
     this.errorMessage = null;
+    this.setState({
+      appState: STATE_LOADING
+    });
     this.controller.fetchWeather().then(weather => {
       this.setState({
         appState: STATE_SHOWING
@@ -40,7 +47,9 @@ class App extends Component {
     } else if (this.state.appState === STATE_ERROR) {
       currentComponent = <ErrorMessage errorMessage = {this.errorMessage} />;
     } else if (this.state.appState === STATE_SHOWING) {
-      currentComponent = <WeatherContainer weather = {this.controller.getCurrentWeather()}/>;
+      currentComponent = <WeatherContainer
+        weather = {this.controller.getCurrentWeather()}
+        reload = {() => {this.updateWeather();}} />;
     }
 
     return (
